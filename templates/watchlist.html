@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Watchlist</title>
+	<link href="https://fonts.googleapis.com/css?family=Palanquin+Dark" rel="stylesheet">
+	<link rel="stylesheet" href="../static/styles/gridstyle.css">
+</head>
+<body class = "body" oncontextmenu="return true">
+
+	<div class = "row">
+		<div class="col-2" id="sidebar_logo">
+			MovieDB
+		</div>
+
+		{% if session['uname'] %}
+			<div class="col-2">
+				<p> {{ session['uname'] }} </p>
+				<input class="home_button" type="button" onclick="window.location.href='/logout'" value="Logout">
+			</div>
+
+		{% endif %}
+
+		<form action="" method="POST">
+			<div class="col-10" id="side_search_bar">
+				<input type="text" placeholder="Search Watchlist" name="search" value="{{request.form.search }}">
+				<input type="button" onclick="this.form.submit();"   value="Search">
+			</div>
+		</form>
+	</div>
+
+	<div class="display">
+		{% for i in session['movies'] %}
+			<p> {{i}} </p>
+		{% endfor %}
+	</div>
+</body>
+</html>

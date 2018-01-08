@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Insert</title>
+	<link href="https://fonts.googleapis.com/css?family=Palanquin+Dark" rel="stylesheet">
+	<link rel="stylesheet" href="../static/styles/style1.css">
+</head>
+<body class = "body" oncontextmenu="return true">
+
+	<div class="sitename_other">
+		<h1> MovieDB </h1>
+	</div>
+	<form action="" method="POST">
+		<div class="login">
+			<input type="text" placeholder="Title" name="title" value="{{request.form.title }}"><br>
+			<input type="text" placeholder="Duration" name="duration" value="{{request.form.duration }}"><br>
+			<input type="date" placeholder="Release Date" name="r_date" value="{{request.form.r_date }}"><br>
+			<input type="text" placeholder="Language" name="language" value="{{request.form.language }}"><br>
+			<input type="text" placeholder="Genre" name="genre" value="{{request.form.genre }}"><br>
+			<input type="text" placeholder="Tags" name="tags" value="{{request.form.tags }}"><br>
+			<input type="text" placeholder="Director" name="director" value="{{request.form.director }}"><br>
+			<input type="text" placeholder="Producer" name="producer" value="{{request.form.producer }}"><br>
+			<input type="text" placeholder="Screen Writer" name="screen" value="{{request.form.screen  }}"><br>
+			<input type="text" placeholder="Actor" name="actor" value="{{request.form.actor }}"><br>
+			<input type="text" placeholder="Editor" name="editor" value="{{request.form.editor }}"><br>
+			<textarea name="summary" placeholder="Summary" cols="40" rows="8" class="summary"></textarea>      
+			<input type="button" onclick="this.form.submit();" value="Submit">
+			<input type="button" onclick="this.form.submit();" value="Logout">
+		</div>
+	</form>
+	{% if session['error'] %}
+		<p class="error"><strong>Error:</strong> {{ session['error'] }}
+	{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Login</title>
+	<link href="https://fonts.googleapis.com/css?family=Palanquin+Dark" rel="stylesheet">
+	<link rel="stylesheet" href="../static/styles/style1.css">
+</head>
+<body class = "body" oncontextmenu="return false">
+
+	<div class="sitename_other">
+		<h1> MovieDB </h1>
+	</div>
+	<form action="" method="POST">
+		<div class="login">
+			<input type="text" placeholder="Username" name="UserId" value="{{request.form.username }}"><br>
+			<input type="password" placeholder="Password" name="Password" value="{{request.form.password }}"><br>
+			<input type="button" onclick="this.form.submit();" value="Login"/>
+			<input type="button" onclick="window.location.href='/register'" value="Register">
+		</div>
+	</form>
+	{% if session['error'] %}
+		<p class="error"><strong>Error:</strong> {{ session['error'] }}
+	{% endif %}
+
+	{% if session['user_type'] %}
+		<p class="u_type"><strong>hey</strong> {{ session['user_type'] }}
+	{% endif %}
+
+</body>
+</html>

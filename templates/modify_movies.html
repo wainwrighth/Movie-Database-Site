@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Modify</title>
+	<link href="https://fonts.googleapis.com/css?family=Palanquin+Dark" rel="stylesheet">
+	<link rel="stylesheet" href="../static/styles/style1.css">
+</head>
+<body class = "body" oncontextmenu="return true">
+
+	<div class="sitename_other">
+		<h1> MovieDB </h1>
+	</div>
+	<form action="" method="POST">
+		<div class="login">
+			{% if session['movies'] %}
+
+				<input type="text" placeholder="Title" name="title" value="{{session['movies'][0][0]}}"><br>
+				<input type="text" placeholder="Duration" name="duration" value="{{session['movies'][2][0]}}"><br>
+				<input type="date" placeholder="Release Date" name="r_date" value="{{session['movies'][3][0]}}"><br>
+
+				{% for i in session['movies'][1] %}
+					<input type="text" placeholder="Language" name="language" value="{{i}}"><br>
+				{% endfor %}
+
+
+				{% for i in session['movies'][10] %}
+					<input type="text" placeholder="Genre" name="genre" value="{{i}}"><br>
+				{% endfor %}
+
+
+				{% for i in session['movies'][11] %}
+					<input type="text" placeholder="Tags" name="tags" value="{{i}}"><br>
+				{% endfor %}
+
+				{% for i in session['movies'][6] %}
+					<input type="text" placeholder="Director" name="director" value="{{i}}"><br>
+				{% endfor %}
+
+
+				{% for i in session['movies'][7] %}
+					<input type="text" placeholder="Producer" name="producer" value="{{i}}"><br>
+				{% endfor %}
+
+
+				{% for i in session['movies'][8] %}
+					<input type="text" placeholder="Screen Writer" name="screen" value="{{i}}"><br>
+				{% endfor %}
+
+
+				{% for i in session['movies'][5] %}
+					<input type="text" placeholder="Actor" name="actor" value="{{i}}"><br>
+				{% endfor %}
+
+				{% for i in session['movies'][9] %}
+					<input type="text" placeholder="Editor" name="editor" value="{{i}}"><br>
+				{% endfor %}
+
+				<textarea name="summary" placeholder="Summary" cols="40" rows="8" class="summary" value="Summary">{{session['movies'][4][0]}}</textarea>
+			{% endif %}
+			<input type="submit" name="btn" value="Modify">
+			<input type="submit" name="btn" value="Delete">
+		</div>
+	</form>
+	{% if session['error'] %}
+		<p class="error"><strong>Error:</strong> {{ session['error'] }}
+	{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,155 @@
+{% extends "bootstrap/base.html" %}
+
+{% block doc %}
+
+	{% block head %}
+
+		<meta charset="UTF-8">
+		<title>Display</title>
+		{{super()}}
+		<link href="https://fonts.googleapis.com/css?family=Palanquin+Dark" rel="stylesheet">
+
+	{% endblock %}
+
+	{% block body %}
+		<nav class="navbar navbar-default">
+		  <div class="container-fluid">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand" href="/">MovieDB</a>
+			</div>
+
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			  <ul class="nav navbar-nav">
+				{% if session['user_type'] == "manager" %}
+					<li><a href="/insert">Insert</a></li>
+					<li><a href="/modify_users">Modify</a></li>
+				{% endif %}
+			  </ul>
+			  <form class="navbar-form navbar-left" role="search" method="POST">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Search" name="search" value="{{request.form.search}}">
+
+					<input type="hidden" name="mod_val" value="No">
+					<button type=button" class="btn btn-info dropdown-toggle" onclick="this.form.submit();" class="btn btn-default">Search</button>
+
+				</div>
+
+				<!--<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu" name="Search_By">
+						<li><option value="All">All</option></li>
+						<li><option value="Movie">Movie</option></li>
+						<li><option value="Genre">Genre</option></li>
+						<li><option value="Crew">Crew</option></li>
+						<li><option value="Tags">Tags</option></li>
+					</ul>
+				</li>-->
+			  </form>
+			  <ul class="nav navbar-nav navbar-right">
+				{% if session['uname'] %}
+					<li><p class="navbar-text">Hi, {{session['name']}}</p></li>
+					<li><a href="/logout">Logout</a></li>
+					<li><a href="/watchlist">Watchlist</a></li>
+				{% else %}
+					<li><a href="/login">Login</a></li>
+					<li><a href="/register">Register</a></li>
+				{% endif %}
+			  </ul>
+			</div>
+		  </div>
+		</nav>
+
+
+		<div class = "row">
+
+			<div class="col-lg-6">
+				<div class="input-group">
+					<form action="" method="POST">
+						<input type="text" class="form-control" placeholder="Search" name="search" value="{{request.form.search }}">
+						<span class="input-group-btn">
+							<input type="hidden" name="mod_val" value="No">
+							<button class="btn btn-default" type="button" onclick="this.form.submit();" value="Search">Go!</button>
+						</span>
+						<select style="width: 7%" class="form-control" name="Search_By">						
+							<option value="All">All</option>
+							<option value="Movie">Movie</option>
+							<option value="Genre">Genre</option>
+							<option value="Crew">Crew</option>
+							<option value="Tags">Tags</option>
+						</select>
+						<select style="width: 7%" class="form-control" name="Sort_By">
+							<option value="Title(A-Z)">Title(A-Z)</option>
+							<option value="Title(Z-A)">Title(Z-A)</option>
+							<option value="Date">Date</option>
+							<option value="Rating">Rating</option>
+							<option value="Duration">Duration</option>
+						</select>
+					</form>
+				</div><!-- /input-group -->
+			</div>
+
+			<form action="" method="POST">
+				<div class="col-10" id="side_search_bar">
+					<input type="text" placeholder="Search" name="search" value="{{request.form.search }}">
+					<input type="hidden" name="mod_val" value="No">
+					<input type="button" onclick="this.form.submit();" value="Search">
+					<select name="Search_By">
+						<option value="All">All</option>
+						<option value="Movie">Movie</option>
+						<option value="Genre">Genre</option>
+						<option value="Crew">Crew</option>
+						<option value="Tags">Tags</option>
+					</select><br>
+					<select name="Sort_By">
+						<option value="Title(A-Z)">Title(A-Z)</option>
+						<option value="Title(Z-A)">Title(Z-A)</option>
+						<option value="Date">Date</option>
+						<option value="Rating">Rating</option>
+						<option value="Duration">Duration</option>
+					</select><br>
+				</div>
+			</form>
+		</div>
+
+		<div class="display">
+			{% for i in session['movies'] %}
+				{% if session['user_type'] == "manager" %}
+					<form action="" method="POST">
+						<input type="hidden" name="mod_val" value="{{i[0][0]}}">
+						<input type="button" onclick="this.form.submit();" value="Modify">
+					</form>
+				{% endif %}
+
+				<p> Movie: {{i[0][0]}} </p>
+				{% for actor in i[1] %}
+					<p> Actors: {{actor}} </p>
+				{% endfor %}
+				{% for director in i[2] %}
+					<p> Directors: {{director}} </p>
+				{% endfor %}
+				{% for producer in i[3] %}
+					<p> Producers: {{producer}} </p>
+				{% endfor %}
+				<p> Summary: {{i[4][0]}} </p>
+				<p> Date: {{i[5][0]}} </p>
+				<p> Duration: {{i[6][0]}}
+
+			{% endfor %}
+
+	{% endblock %}
+
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+	<link rel="stylesheet"
+	  href="./static/css/flat_bootstrap.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+{% endblock %}
